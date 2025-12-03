@@ -1,17 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-// Importamos todos los íconos necesarios
 import { Menu, X, ShoppingCart, User, Home, Package } from "lucide-react";
+import { BRAND_NAME, LEFT_NAV_ITEMS } from "../../data/constants";
 
-// 1. ITEMS DE NAVEGACIÓN
-// Ítems a la IZQUIERDA (Enlaces principales, se van al menú móvil)
-const leftNavItems = [
-  { name: "Inicio", to: "/", exact: true, icon: null },
-  { name: "Productos", to: "/productos", icon: null },
-  { name: "Sobre nosotros", to: "/sobre-nosotros", icon: null },
-];
-
-// Ítems a la DERECHA (Acciones, se quedan visibles en móvil como íconos)
+// derecha - icons need to be imported in component
 const rightNavItems = [
   { name: "Iniciar sesión", to: "/login", icon: User },
   { name: "Carrito", to: "/cart", icon: ShoppingCart },
@@ -26,30 +18,28 @@ export const Navbar = () => {
   const renderNavItem = (Icon, name) => (Icon ? <Icon size={20} /> : name);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50 py-6">
+    <header className="absolute inset-x-0 top-0 z-50">
       {/* Navbar */}
-      <nav className="glass-nav mx-6 md:mx-20 lg:mx-40 px-6 py-3">
+      <nav className="glass-nav container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             {/* Logo */}
             <NavLink to="/" onClick={closeMenu} className="mr-8">
-              <span className="text-xl font-bold text-foreground select-none">
-                Store-It
+              <span className="text-2xl font-bold text-primary select-none">
+                {BRAND_NAME}
               </span>
             </NavLink>
 
             {/* Desktop Navigation -left */}
             <div className="hidden md:flex items-center space-x-6">
-              {leftNavItems.map(({ to, name, exact, icon: Icon }) => (
+              {LEFT_NAV_ITEMS.map(({ to, name, exact, icon: Icon }) => (
                 <NavLink
                   key={name}
                   to={to}
                   end={exact}
                   className={({ isActive }) =>
-                    `flex items-center text-foreground text-[14px] font-medium transition-colors ${
-                      isActive
-                        ? "text-accent-morado2 font-bold"
-                        : "hover:text-primary-light"
+                    `flex items-center text-primary text-lg transition-colors ${
+                      isActive ? "font-bold" : "hover:text-secondary"
                     }`
                   }
                 >
@@ -68,10 +58,8 @@ export const Navbar = () => {
                   to={to}
                   end={exact}
                   className={({ isActive }) =>
-                    `flex items-center gap-2 text-foreground font-medium transition-colors ${
-                      isActive
-                        ? "text-accent-morado2 font-bold"
-                        : "hover:text-primary-light"
+                    `flex items-center gap-2 text-primary text-lg transition-colors ${
+                      isActive ? "font-bold" : "hover:text-secondary"
                     }`
                   }
                 >
@@ -86,7 +74,7 @@ export const Navbar = () => {
                   key={name}
                   to={to}
                   onClick={closeMenu}
-                  className="text-foreground hover:text-primary-light transition-colors"
+                  className="text-primary hover:text-secondary transition-colors"
                 >
                   {Icon && <Icon size={24} />}
                 </NavLink>
@@ -96,7 +84,7 @@ export const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden ml-4 text-foreground hover:text-primary-light transition-colors"
+              className="md:hidden ml-4 text-primary hover:text-secondary transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -106,19 +94,19 @@ export const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pt-4 border-t border-border">
+          <div className="md:hidden mt-4 pt-4 border-t border-primary/20">
             <div className="flex flex-col space-y-3">
-              {leftNavItems.map(({ to, name, exact }) => (
+              {LEFT_NAV_ITEMS.map(({ to, name, exact }) => (
                 <NavLink
                   key={name}
                   to={to}
                   end={exact}
                   onClick={closeMenu}
                   className={({ isActive }) =>
-                    `flex items-center gap-3 text-foreground font-medium py-2 px-3 rounded-lg transition-colors ${
+                    `flex items-center gap-3 text-primary py-2 px-3 rounded-lg transition-colors ${
                       isActive
-                        ? "bg-primary/10 text-accent-morado font-bold"
-                        : "hover:bg-gray-100"
+                        ? "bg-primary/5 text-primary font-bold"
+                        : "hover:bg-primary/10"
                     }`
                   }
                 >
