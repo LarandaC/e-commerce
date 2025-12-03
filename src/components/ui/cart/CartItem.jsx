@@ -1,5 +1,6 @@
-import { Plus, Minus, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { formatCurrency } from "../../../utils/formatters";
+import { QuantitySelector } from "../QuantitySelector";
 
 export const CartItem = ({ item, updateQuantity, removeItem }) => {
   return (
@@ -31,38 +32,28 @@ export const CartItem = ({ item, updateQuantity, removeItem }) => {
 
           {/* Quantity Controls & Remove */}
           <div className="flex items-center justify-between mt-4">
-            <div className="flex items-center gap-3 bg-background border border-border rounded-xl p-1">
-              <button
-                onClick={() =>
-                  updateQuantity(
-                    item.id,
-                    item.size,
-                    item.color,
-                    item.quantity - 1
-                  )
-                }
-                className="w-8 h-8 flex items-center cursor-pointer justify-center hover:bg-primary/10 rounded-lg transition-colors"
-                disabled={item.quantity <= 1}
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-              <span className="w-8 text-center font-semibold">
-                {item.quantity}
-              </span>
-              <button
-                onClick={() =>
-                  updateQuantity(
-                    item.id,
-                    item.size,
-                    item.color,
-                    item.quantity + 1
-                  )
-                }
-                className="w-8 h-8 flex items-center cursor-pointer justify-center hover:bg-primary/10 rounded-lg transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
+            <QuantitySelector
+              quantity={item.quantity}
+              onIncrement={() =>
+                updateQuantity(
+                  item.id,
+                  item.size,
+                  item.color,
+                  item.quantity + 1
+                )
+              }
+              onDecrement={() =>
+                updateQuantity(
+                  item.id,
+                  item.size,
+                  item.color,
+                  item.quantity - 1
+                )
+              }
+              disabled={item.quantity <= 1}
+              size="md"
+              className="bg-background"
+            />
 
             <button
               onClick={() => removeItem(item.id, item.size, item.color)}

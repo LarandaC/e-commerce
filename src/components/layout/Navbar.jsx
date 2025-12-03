@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X, ShoppingCart, User, Home, Package } from "lucide-react";
 import { BRAND_NAME, LEFT_NAV_ITEMS } from "../../data/constants";
@@ -11,16 +11,64 @@ const rightNavItems = [
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const menuRef = useRef(null);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleOutsideClick = useCallback(
+    (e) => {
+      if (
+        isMenuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    },
+    [isMenuOpen]
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+      // Close menu on any scroll
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
 
   const renderNavItem = (Icon, name) => (Icon ? <Icon size={20} /> : name);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-b border-border/40 shadow-sm"
+          : "bg-transparent border-transparent"
+      }`}
+    >
       {/* Navbar */}
-      <nav className="glass-nav container mx-auto px-4 py-6">
+      <nav className=" container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             {/* Logo */}
@@ -39,7 +87,7 @@ export const Navbar = () => {
                   end={exact}
                   className={({ isActive }) =>
                     `flex items-center text-primary text-lg transition-colors ${
-                      isActive ? "font-bold" : "hover:text-secondary"
+                      isActive ? "font-bold" : "hover:text-primary-light"
                     }`
                   }
                 >
@@ -84,7 +132,7 @@ export const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden ml-4 text-primary hover:text-secondary transition-colors"
+              className="md:hidden ml-4 text-primary hover:text-secondary transition-colors cursor-pointer"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -94,7 +142,10 @@ export const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pt-4 border-t border-primary/20">
+          <div
+            ref={menuRef}
+            className="md:hidden mt-4 pt-4 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 rounded-lg p-2"
+          >
             <div className="flex flex-col space-y-3">
               {LEFT_NAV_ITEMS.map(({ to, name, exact }) => (
                 <NavLink

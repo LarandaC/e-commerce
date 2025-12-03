@@ -24,7 +24,7 @@ export const ProductSection = () => {
   return (
     <section className={SECTION_WITH_BG}>
       <div className={`${CONTAINER_SECTION} space-y-10`}>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-4">
           <h1 className={HEADING}>Colecciones</h1>
           <span className="text-foreground">{products.length} conjuntos</span>
         </div>

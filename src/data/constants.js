@@ -20,5 +20,5 @@ export const RIGHT_NAV_ITEMS = [
 ];
 
 // Developer information
-export const DEVELOPER_NAME = "Tu Nombre";
-export const DEVELOPER_GITHUB = "https://github.com/laranda";
+export const DEVELOPER_NAME = "L";
+export const DEVELOPER_GITHUB = "https://github.com/LarandaC";

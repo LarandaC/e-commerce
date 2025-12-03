@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ShoppingCart, Check, Plus, Minus } from "lucide-react";
+import { ShoppingCart, Check } from "lucide-react";
 import { formatCurrency } from "../../utils/formatters";
 import { useCartStore } from "../../stores/cartStore";
 import { NavLink } from "react-router-dom";
+import { QuantitySelector } from "../ui/QuantitySelector";
 
 export const ProductCard = ({ product }) => {
   const { name, price, image } = product;
@@ -43,23 +44,13 @@ export const ProductCard = ({ product }) => {
         {/* Bottom Overlay with Controls */}
         <div className="absolute bottom-0 left-0 right-0 p-2 bg-white/95 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-between gap-3">
           {/* Quantity Selector */}
-          <div className=" bg-background border border-border rounded-lg p-1 flex items-center gap-2">
-            <button
-              onClick={decrementQuantity}
-              className="w-7 h-7 cursor-pointer flex items-center justify-center hover:bg-primary/10 rounded-lg transition-colors"
-            >
-              <Minus size={14} />
-            </button>
-            <span className="w-4 text-center text-sm font-bold text-foreground">
-              {quantity}
-            </span>
-            <button
-              onClick={incrementQuantity}
-              className="w-7 h-7 cursor-pointer flex items-center justify-center hover:bg-primary/10 rounded-lg transition-colors"
-            >
-              <Plus size={14} />
-            </button>
-          </div>
+          <QuantitySelector
+            quantity={quantity}
+            onIncrement={incrementQuantity}
+            onDecrement={decrementQuantity}
+            size="sm"
+            className="bg-background"
+          />
 
           {/* Add Button */}
           <button

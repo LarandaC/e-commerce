@@ -13,7 +13,7 @@ export const AboutUsSection = () => {
     <section className={SECTION_WITH_BG}>
       <div className={`${CONTAINER_SECTION} space-y-10`}>
         {/* Header */}
-        <div className="text-left space-y-6">
+        <div className="text-left space-y-6 pt-4">
           <h2 className={HEADING}>Redefiniendo el estilo urbano</h2>
 
           <p className={TEXT_BODY}>

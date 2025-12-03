@@ -5,16 +5,18 @@
 
 // Container patterns
 export const CONTAINER_BASE = "container mx-auto px-4";
-export const CONTAINER_SECTION = "container mx-auto px-4 py-16 relative";
+export const CONTAINER_SECTION = "container mx-auto px-4 relative";
 
 // Section wrappers
 export const SECTION_BASE =
   "relative min-h-screen flex items-center justify-center overflow-hidden";
-export const SECTION_WITH_BG = "py-16 px-4 md:px-8 bg-background";
+export const SECTION_WITH_BG = "py-24 px-4 md:px-8 bg-background";
 
 // Typography - Headings
 export const HEADING =
   "text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-primary";
+export const HEADING_2 =
+  "text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-primary";
 
 // Typography - Body text
 export const TEXT_BODY = "text-lg text-foreground leading-relaxed font-light";
