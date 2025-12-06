@@ -2,6 +2,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { AboutUs } from "./components/pages/AboutUs";
 import { Login } from "./components/pages/Login";
+import { Register } from "./components/pages/Register";
 import { Cart } from "./components/pages/Cart";
 import { ProductDetail } from "./components/pages/ProductDetail";
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/colecciones" element={<Products />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/colecciones/:id" element={<ProductDetail />} />
         </Routes>

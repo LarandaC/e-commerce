@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const SecondaryButton = ({ to, text }) => {
+export const CtaSecondaryButton = ({ to, text }) => {
   return (
     <NavLink
       to={to}

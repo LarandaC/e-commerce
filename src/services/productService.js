@@ -24,11 +24,11 @@ export const getProductsById = async (id) => {
 
 const transformProduct = (product) => ({
   id: product.id,
-  name: product.title,
+  name: product.name,
   price: Math.round(product.price * EXCHANGE_RATE),
   image: product.image,
   description: product.description,
   category: product.category,
-  size: "M",
-  color: "Estándar",
+  size: product.size,
+  color: product.color,
 });

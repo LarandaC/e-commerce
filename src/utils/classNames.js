@@ -14,9 +14,9 @@ export const SECTION_WITH_BG = "py-24 px-4 md:px-8 bg-background";
 
 // Typography - Headings
 export const HEADING =
-  "text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-primary";
+  "text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-primary font-family-heading";
 export const HEADING_2 =
-  "text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-primary";
+  "text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-primary font-family-heading";
 
 // Typography - Body text
 export const TEXT_BODY = "text-lg text-foreground leading-relaxed font-light";

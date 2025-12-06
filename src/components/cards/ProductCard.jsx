@@ -32,12 +32,12 @@ export const ProductCard = ({ product }) => {
 
   return (
     <div className="group relative overflow-hidden transition-all duration-300 mt-4 bg-white shadow-md border border-border/40 rounded-xl">
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <div className="w-full h-3/4 flex items-center justify-center pt-4">
+      <div className="relative aspect-3/4 overflow-hidden">
+        <div className="w-full h-full flex items-center justify-center">
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
         </div>
 

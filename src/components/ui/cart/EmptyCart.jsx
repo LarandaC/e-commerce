@@ -1,5 +1,5 @@
 import { Package } from "lucide-react";
-import { Button } from "../../ui/Button";
+import { CtaButton } from "../../ui/CtaButton";
 
 export const EmptyCart = () => {
   return (
@@ -17,7 +17,7 @@ export const EmptyCart = () => {
           ¡Agrega algunos productos increíbles!
         </p>
       </div>
-      <Button to="/colecciones" text="Explorar Productos" />
+      <CtaButton to="/colecciones" text="Explorar Productos" />
     </div>
   );
 };

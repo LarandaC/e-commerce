@@ -1,12 +1,13 @@
 import { ChevronRight, Sparkles } from "lucide-react";
 import bgImage from "../../assets/images/bghero.png";
-import { Button } from "../ui/Button";
-import { SecondaryButton } from "../ui/SecondaryButton";
+import { CtaButton } from "../ui/CtaButton";
+import { CtaSecondaryButton } from "../ui/CtaSecondaryButton";
 import {
   CONTAINER_BASE,
   HEADING,
   TEXT_BODY_MAX_WIDTH,
 } from "../../utils/classNames";
+import { SocialMedia } from "../ui/SocialMedia";
 
 export const HeroSection = () => {
   return (
@@ -22,7 +23,7 @@ export const HeroSection = () => {
       <div className={`${CONTAINER_BASE} py-10 relative z-10`}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mx-auto">
           {/* Left Content */}
-          <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
+          <div className="space-y-8 text-center lg:text-left order-1 lg:order-1">
             {/* Badge */}
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 px-6 py-2 bg-primary rounded-full w-fit mx-auto lg:mx-0">
               <Sparkles className="w-4 h-4 text-white" />
@@ -48,10 +49,10 @@ export const HeroSection = () => {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-              <Button to="/colecciones" text="Explorar colección">
+              <CtaButton to="/colecciones" text="Explorar colección">
                 <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <SecondaryButton to="/about" text="Conoce más" />
+              </CtaButton>
+              <CtaSecondaryButton to="/about" text="Conoce más" />
             </div>
 
             {/* Badges */}
@@ -71,6 +72,11 @@ export const HeroSection = () => {
                 </p>
               </div>
             </div>
+          </div>
+
+          <div className="space-y-8 text-right order-2 lg:order-2">
+            {/* Social Media */}
+            <SocialMedia />
           </div>
         </div>
       </div>

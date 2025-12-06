@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { SubmitButton } from "../SubmitButton";
 
 export const LoginForm = ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -97,12 +98,7 @@ export const LoginForm = ({ onSubmit }) => {
       </div>
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="w-full cursor-pointer py-3 bg-linear-to-r from-primary to-secondary text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-      >
-        Iniciar sesión
-      </button>
+      <SubmitButton disabled={false}>Iniciar sesión</SubmitButton>
     </form>
   );
 };

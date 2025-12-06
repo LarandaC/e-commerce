@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const Button = ({ to, text, children }) => {
+export const CtaButton = ({ to, text, children }) => {
   return (
     <NavLink
       to={to}

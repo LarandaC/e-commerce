@@ -1,20 +1,32 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X, ShoppingCart, User, Home, Package } from "lucide-react";
+import {
+  Menu,
+  X,
+  ShoppingCart,
+  User,
+  Home,
+  Package,
+  LogOut,
+  ChevronDown,
+} from "lucide-react";
 import { BRAND_NAME, LEFT_NAV_ITEMS } from "../../data/constants";
-
-// derecha - icons need to be imported in component
-const rightNavItems = [
-  { name: "Iniciar sesión", to: "/login", icon: User },
-  { name: "Carrito", to: "/cart", icon: ShoppingCart },
-];
+import { useAuthStore } from "../../stores/authStore";
+import { ActionButton } from "../ui/ActionButton";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuthStore();
 
   const menuRef = useRef(null);
+  const userDropdownRef = useRef(null);
   const closeMenu = () => setIsMenuOpen(false);
+  const toggleUserDropdown = (e) => {
+    e.stopPropagation();
+    setIsUserDropdownOpen(!isUserDropdownOpen);
+  };
 
   const toggleMenu = (e) => {
     e.stopPropagation();
@@ -30,8 +42,15 @@ export const Navbar = () => {
       ) {
         setIsMenuOpen(false);
       }
+      if (
+        isUserDropdownOpen &&
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(e.target)
+      ) {
+        setIsUserDropdownOpen(false);
+      }
     },
-    [isMenuOpen]
+    [isMenuOpen, isUserDropdownOpen]
   );
 
   useEffect(() => {
@@ -50,14 +69,27 @@ export const Navbar = () => {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    const handleMenuScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+      // Close menu on any scroll
+      if (isUserDropdownOpen) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+    window.addEventListener("scroll", handleMenuScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleMenuScroll);
+    };
+  }, [isUserDropdownOpen]);
+
+  useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
 
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [handleOutsideClick]);
-
-  const renderNavItem = (Icon, name) => (Icon ? <Icon size={20} /> : name);
 
   return (
     <header
@@ -91,7 +123,7 @@ export const Navbar = () => {
                     }`
                   }
                 >
-                  {renderNavItem(Icon, name)}
+                  {Icon ? <Icon size={20} /> : name}
                 </NavLink>
               ))}
             </div>
@@ -100,33 +132,125 @@ export const Navbar = () => {
           <div className="flex items-center">
             {/* Desktop Navigation - derecha */}
             <div className="hidden md:flex items-center space-x-6">
-              {rightNavItems.map(({ to, name, exact, icon: Icon }) => (
+              {/* User Dropdown */}
+              {isAuthenticated ? (
+                <div className="relative" ref={userDropdownRef}>
+                  <button
+                    onClick={toggleUserDropdown}
+                    className="flex items-center gap-2 text-primary hover:text-secondary transition-colors"
+                  >
+                    <User size={20} />
+                    <span>{user?.name || "Usuario"}</span>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform cursor-pointer ${
+                        isUserDropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {isUserDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
+                      <NavLink
+                        to="/profile"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10 transition-colors"
+                      >
+                        <User size={18} />
+                        <span>Mi Perfil</span>
+                      </NavLink>
+                      <button
+                        onClick={() => {
+                          setIsUserDropdownOpen(false);
+                          logout();
+                        }}
+                        className="w-full cursor-pointer flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10 transition-colors"
+                      >
+                        <LogOut size={18} />
+                        <span>Salir</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
                 <NavLink
-                  key={name}
-                  to={to}
-                  end={exact}
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 text-primary text-lg transition-colors ${
-                      isActive ? "font-bold" : "hover:text-secondary"
-                    }`
-                  }
+                  to="/login"
+                  className="flex items-center gap-2 text-primary text-lg transition-colors hover:text-secondary"
                 >
-                  {renderNavItem(Icon, name)}
+                  <User size={20} />
                 </NavLink>
-              ))}
+              )}
+
+              {/* Cart */}
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  `flex items-center gap-2 text-primary text-lg transition-colors ${
+                    isActive ? "font-bold" : "hover:text-secondary"
+                  }`
+                }
+              >
+                <ShoppingCart size={20} />
+              </NavLink>
             </div>
 
+            {/* Mobile Navigation Icons */}
             <div className="md:hidden flex items-center space-x-4">
-              {rightNavItems.map(({ to, name, icon: Icon }) => (
+              {isAuthenticated ? (
+                <div className="relative" ref={userDropdownRef}>
+                  <button
+                    onClick={toggleUserDropdown}
+                    className="flex items-center gap-2 text-primary hover:text-secondary transition-colors"
+                  >
+                    <User size={24} />
+                    <span className="text-sm">{user?.name || "Usuario"}</span>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform ${
+                        isUserDropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {isUserDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
+                      <NavLink
+                        to="/profile"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10 transition-colors"
+                      >
+                        <User size={18} />
+                        <span>Mi Perfil</span>
+                      </NavLink>
+                      <button
+                        onClick={() => {
+                          setIsUserDropdownOpen(false);
+                          logout();
+                        }}
+                        className="w-full cursor-pointer flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10 transition-colors"
+                      >
+                        <LogOut size={18} />
+                        <span>Salir</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
                 <NavLink
-                  key={name}
-                  to={to}
+                  to="/login"
                   onClick={closeMenu}
                   className="text-primary hover:text-secondary transition-colors"
                 >
-                  {Icon && <Icon size={24} />}
+                  <User size={24} />
                 </NavLink>
-              ))}
+              )}
+              <NavLink
+                to="/cart"
+                onClick={closeMenu}
+                className="text-primary hover:text-secondary transition-colors"
+              >
+                <ShoppingCart size={24} />
+              </NavLink>
             </div>
 
             {/* Mobile Menu Button */}

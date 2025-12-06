@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import { Button } from "../ui/Button";
+import { CtaButton } from "../ui/CtaButton";
 import { STATS, VALUES } from "../../data/aboutUs";
 import {
   CONTAINER_SECTION,
@@ -29,7 +29,7 @@ export const AboutUsSection = () => {
           {/* Image */}
           <div className="relative group">
             <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-secondary/20 rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl">
+            <div className="relative aspect-4/3 overflow-hidden rounded-3xl shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop"
                 alt="Nuestra tienda"
@@ -101,10 +101,10 @@ export const AboutUsSection = () => {
                   key={index}
                   className="text-center space-y-2 group cursor-default"
                 >
-                  <div className="text-4xl md:text-5xl font-black text-primary group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-3xl md:text-4xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
                     {stat.number}
                   </div>
-                  <div className="text-sm md:text-base text-foreground font-semibold">
+                  <div className="text-sm md:text-base text-foreground font-medium">
                     {stat.label}
                   </div>
                 </div>
@@ -122,9 +122,9 @@ export const AboutUsSection = () => {
             Únete a nuestra comunidad y recibe acceso exclusivo a nuevas
             colecciones, ofertas especiales y consejos de estilo.
           </p>
-          <Button text="Explorar Colección" to="/colecciones">
+          <CtaButton text="Explorar Colección" to="/colecciones">
             <TrendingUp className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          </CtaButton>
         </div>
       </div>
     </section>

@@ -11,6 +11,7 @@ import {
   HEADING_2,
 } from "../../utils/classNames";
 import { QuantitySelector } from "../ui/QuantitySelector";
+import { ActionButton } from "../ui/ActionButton";
 
 export const ProductDetailSection = () => {
   const { id } = useParams();
@@ -83,7 +84,7 @@ export const ProductDetailSection = () => {
               <span className="text-sm font-medium text-primary uppercase tracking-wider">
                 {product.category}
               </span>
-              <h1 className={`${HEADING} text-left mt-4`}>{product.name}</h1>
+              <h1 className={`${HEADING} text-left mt-2`}>{product.name}</h1>
               <p className="text-2xl font-bold text-primary">
                 {formatCurrency(product.price)}
               </p>
@@ -104,18 +105,17 @@ export const ProductDetailSection = () => {
                 />
 
                 {/* Add to Cart Button */}
-                <button
+                <ActionButton
                   onClick={handleAddToCart}
                   disabled={isAdded}
-                  className={`cursor-pointer flex-1 py-4 px-8 rounded-xl font-bold text-md transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                    isAdded
-                      ? "bg-green-500 text-white hover:bg-green-600"
-                      : "bg-primary text-white"
+                  className={`flex-1 gap-3 ${
+                    isAdded ? "bg-green-500 hover:bg-green-600" : ""
                   }`}
+                  variant={isAdded ? "success" : "primary"}
                 >
                   {isAdded ? <Check size={20} /> : <ShoppingCart size={20} />}
                   {isAdded ? "¡Agregado al Carrito!" : "Agregar al Carrito"}
-                </button>
+                </ActionButton>
               </div>
             </div>
             <button
