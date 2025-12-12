@@ -2,7 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import bgImage from "../../assets/images/bghero.png";
 import { HEADING, SECTION_WITH_BG } from "../../utils/classNames";
-import { SocialLogin } from "../ui/login/SocialLogin";
+import { SocialLogin } from "../../features/auth/components/SocialLogin";
 
 export const AuthLayout = ({
   title,
@@ -19,7 +19,7 @@ export const AuthLayout = ({
   return (
     <section className={`${SECTION_WITH_BG} w-full`}>
       <div className="container mx-auto max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 rounded-3xl shadow-xl overflow-hidden bg-white">
-        <div className="p-8 lg:p-14 flex flex-col justify-center">
+        <div className="p-4 sm:p-8 flex flex-col justify-center">
           <div className="flex mb-6 h-6">
             {showBackButton && (
               <button

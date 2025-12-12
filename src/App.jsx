@@ -1,16 +1,18 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import { AboutUs } from "./components/pages/AboutUs";
-import { Login } from "./components/pages/Login";
-import { Register } from "./components/pages/Register";
-import { Cart } from "./components/pages/Cart";
-import { ProductDetail } from "./components/pages/ProductDetail";
+import { AboutUs } from "./pages/AboutUs";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+import { Cart } from "./pages/Cart";
+import { ProductDetail } from "./pages/ProductDetail";
+import { Wishlist } from "./pages/Wishlist";
+import { UserProfile } from "./pages/UserProfile";
 
 const Home = lazy(() =>
-  import("./components/pages/Home").then((module) => ({ default: module.Home }))
+  import("./pages/Home").then((module) => ({ default: module.Home }))
 );
 const Products = lazy(() =>
-  import("./components/pages/Products").then((module) => ({
+  import("./pages/Products").then((module) => ({
     default: module.Products,
   }))
 );
@@ -28,11 +30,13 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/colecciones" element={<Products />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/colecciones/:id" element={<ProductDetail />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

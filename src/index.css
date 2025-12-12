@@ -1,17 +1,60 @@
 @import "tailwindcss";
 
+/* ============================================
+   ENHANCED COLOR SYSTEM
+   ============================================ */
+
 /* Light Theme (default) */
 @theme {
+  /* Typography */
   --font-family-body: "Inter", sans-serif;
   --font-family-heading: "Urbanist", sans-serif;
-  --color-background: #f5f5f5;
-  --color-foreground: #333333;
+
+  /* Base Colors */
+  --color-background: #f8f9fa;
+  --color-foreground: #1a1a1a;
   --color-card: #ffffff;
+  --color-muted: #6b7280;
+  --color-muted-foreground: #9ca3af;
+
+  /* Primary & Secondary */
   --color-primary: #000000;
-  --color-secondary: #1a1a1a;
-  --color-border: #e0e0e0;
   --color-primary-light: #5e5e5e;
-  --color-accent: #008080;
+  --color-primary-dark: #0a0a0a;
+  --color-secondary: #1a1a1a;
+  --color-secondary-light: #404040;
+
+  /* State Colors */
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-success-dark: #059669;
+
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-warning-dark: #d97706;
+
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-error-dark: #dc2626;
+
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+  --color-info-dark: #2563eb;
+
+  /* Borders & Dividers */
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  --color-border-dark: #d1d5db;
+
+  /* Shadows */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-md: rgba(0, 0, 0, 0.15);
+  --color-shadow-lg: rgba(0, 0, 0, 0.2);
+
+  /* Overlay Colors */
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-overlay-light: rgba(0, 0, 0, 0.3);
+  --color-overlay-dark: rgba(0, 0, 0, 0.7);
 }
 
 @layer base {
@@ -32,10 +75,359 @@
 }
 
 @layer utilities {
+  /* Glass Effects */
   .glass-nav {
     backdrop-filter: blur(20px);
     background-color: rgba(67, 34, 87, 0);
-
     transition: all 0.5s ease;
+  }
+
+  .glass-card {
+    backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(209, 213, 219, 0.3);
+  }
+
+  .glass-dark {
+    backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(26, 26, 26, 0.75);
+    border: 1px solid rgba(64, 64, 64, 0.3);
+  }
+
+  /* ============================================
+     ANIMATIONS & KEYFRAMES
+     ============================================ */
+
+  /* Shimmer Effect (for skeleton loaders) */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+  }
+
+  /* Pulse Glow */
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Fade In */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  .fade-in-slow {
+    animation: fadeIn 1s ease-in;
+  }
+
+  /* Fade In Up (entrada desde abajo) */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  /* Slide In from Right */
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+  }
+
+  /* Slide In from Left */
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.4s ease-out;
+  }
+
+  /* Scale In (zoom in) */
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* Bounce In */
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Rotate In */
+  @keyframes rotateIn {
+    from {
+      opacity: 0;
+      transform: rotate(-200deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0);
+    }
+  }
+
+  .rotate-in {
+    animation: rotateIn 0.5s ease-out;
+  }
+
+  /* Skeleton Loader */
+  @keyframes skeleton-loading {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: 4px;
+  }
+
+  /* Shake (for errors) */
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-5px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(5px);
+    }
+  }
+
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  /* Spin (for loading spinners) */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Ping (notification dot) */
+  @keyframes ping {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* ============================================
+     TRANSITION UTILITIES
+     ============================================ */
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-bounce {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .transition-slow {
+    transition: all 0.5s ease-in-out;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .hover-scale {
+    transition: transform 0.2s ease;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  .hover-grow {
+    transition: transform 0.3s ease;
+  }
+
+  .hover-grow:hover {
+    transform: scale(1.02);
+  }
+
+  /* Card animations */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Button ripple effect */
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-ripple::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Stagger animations (for lists) */
+  .stagger-item {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .stagger-item:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .stagger-item:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .stagger-item:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .stagger-item:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .stagger-item:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  .stagger-item:nth-child(6) {
+    animation-delay: 0.6s;
   }
 }
